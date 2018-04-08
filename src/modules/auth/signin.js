@@ -12,6 +12,7 @@ import {LOGIN_FORM} from '../shared/forms/config';
 import {bindFunctions} from '../../utils';
 import {loginReq} from './action';
 import {getLogin} from './store';
+import {navigateToScene} from '../../navigation/saga';
 
 class Signin extends Component {
   constructor (props) {
@@ -56,7 +57,9 @@ class Signin extends Component {
   }
 
   _register () {
-    this.props.navigation.navigate('Register');
+    this.props.dispatch(navigateToScene({
+      routeName: 'Register'
+    }));
   }
 
   render () {

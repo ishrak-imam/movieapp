@@ -4,13 +4,12 @@ import {
   Screen, View
 } from '@shoutem/ui';
 import Loader from '../shared/loader';
+import {connect} from 'react-redux';
+import {init} from '../auth/action';
 
-export default class LoadingScreen extends Component {
-  constructor (props) {
-    super(props);
-    setTimeout(() => {
-      props.navigation.navigate('Auth');
-    }, 2000);
+class LoadingScreen extends Component {
+  componentDidMount () {
+    this.props.dispatch(init());
   }
   render () {
     return (
@@ -22,3 +21,5 @@ export default class LoadingScreen extends Component {
     );
   }
 }
+
+export default connect(null, dispatch => ({dispatch}))(LoadingScreen);

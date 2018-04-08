@@ -1,36 +1,18 @@
 
 import {call, put} from 'redux-saga/effects';
 import {takeFirst} from '../../utils/sagaHelpers';
-import Application from '../../navigation';
-
 import {
   getPayloadFromJwt,
   storeToken, getToken, removeToken
 } from '../../utils';
-
 import {
-  init, startApp,
+  init,
   loginReq, loginSucs, loginFail,
   registerReq, registerSucs, registerFail,
   logoutReq, logoutSucs
 } from './action';
-
-import {
-  registerRequest, loginRequest, getUser
-} from '../../api';
-
-const at = {
-  auth: {screen: 'Signin', navigatorStyle: {navBarHidden: true}},
-  home: {screen: 'Home', title: 'Home'}
-};
-
-export function * watchStartApp () {
-  yield takeFirst(startApp.getType(), workerStartApp);
-}
-
-function * workerStartApp (action) {
-  yield call(Application.startApp, action.payload);
-}
+import {navigateToScene} from '../../navigation/saga';
+import {registerRequest, loginRequest, getUser} from '../../api';
 
 export function * watchInit () {
   yield takeFirst(init.getType(), workerInit);
@@ -43,9 +25,9 @@ function * workerInit () {
     const user = yield call(getUser, userId, accessToken);
     user.token = accessToken;
     yield put(loginSucs(user));
-    yield put(startApp(at.home));
+    yield put(navigateToScene({routeName: 'App'}));
   } catch (e) {
-    yield put(startApp(at.auth));
+    yield put(navigateToScene({routeName: 'Auth'}));
   }
 }
 

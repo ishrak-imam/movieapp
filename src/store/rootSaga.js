@@ -1,11 +1,11 @@
 
 import { fork, all } from 'redux-saga/effects';
 
-// import * as navSaga from '../navigation/saga';
+import * as navSaga from '../navigation/saga';
 import * as authSaga from '../modules/auth/saga';
 
 const sagas = {
-  // ...navSaga,
+  ...navSaga,
   ...authSaga
 };
 

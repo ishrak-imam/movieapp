@@ -33,12 +33,12 @@ const appStack = StackNavigator(
     Home: {
       screen: connectTheme(Home),
       navigationOptions: {
-        title: 'Register'
+        title: 'Home'
       }
     }
   },
   {
-    initialRouteName: 'LoadingScreen',
+    initialRouteName: 'Home',
     headerMode: 'screen'
   }
 );
