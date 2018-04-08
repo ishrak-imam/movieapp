@@ -7,7 +7,7 @@ const Loader = ({ visible, size, color, type }) => (
     isVisible={visible}
     size={size || 50}
     color={color || baseColor}
-    type={type || 'ThreeBounce'}
+    type={type || 'Wave'}
   />
 );
 

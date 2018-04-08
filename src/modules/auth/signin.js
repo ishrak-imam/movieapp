@@ -5,7 +5,7 @@ import {
   Animated, Keyboard, Platform,
   KeyboardAvoidingView
 } from 'react-native';
-import BottomButton from '../shared/components/bottomButton';
+import BottomButton from '../shared/bottomButton';
 import {connect} from 'react-redux';
 import Form from '../shared/forms';
 import {LOGIN_FORM} from '../shared/forms/config';

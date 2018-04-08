@@ -7,7 +7,11 @@ export default class App extends Component {
   render () {
     return (
       <Provider store={store}>
-        <Application />
+        <Application
+          ref={navigatorRef => {
+            console.log(navigatorRef);
+          }}
+        />
       </Provider>
     );
   }
