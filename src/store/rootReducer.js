@@ -6,10 +6,12 @@ import {
 } from '../modules/auth/action';
 
 import * as authReducers from '../modules/auth/reducer';
+import * as connectionReducer from '../modules/network/reducer';
 import { reducer as formReducer } from 'redux-form';
 
 const appReducer = combineReducers({
   form: formReducer,
+  ...connectionReducer,
   ...authReducers
 });
 
