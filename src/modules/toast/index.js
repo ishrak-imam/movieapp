@@ -1,8 +1,9 @@
 
 import {call} from 'redux-saga/effects';
-import { createAction } from '../../utils/reduxHelpers';
 import { takeFirst } from '../../utils/sagaHelpers';
 import Toast from 'react-native-root-toast';
+
+import {showToast} from './action';
 
 function displayToast (message) {
   Toast.show(message, {
@@ -14,8 +15,6 @@ function displayToast (message) {
     delay: 0
   });
 }
-
-export const showToast = createAction('SHOW_TOAST');
 
 export function * watchShowToast () {
   yield takeFirst(showToast.getType(), workerShowToast);

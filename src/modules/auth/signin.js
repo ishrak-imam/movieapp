@@ -12,9 +12,7 @@ import {LOGIN_FORM} from '../shared/forms/config';
 import {bindFunctions} from '../../utils';
 import {loginReq} from './action';
 import {getLogin} from './store';
-import {navigateToScene} from '../../navigation/saga';
-
-import Toast from 'react-native-root-toast';
+import {navigateToScene} from '../../navigation/action';
 
 class Signin extends Component {
   constructor (props) {

@@ -11,8 +11,8 @@ import {
   registerReq, registerSucs, registerFail,
   logoutReq, logoutSucs
 } from './action';
-import {showToast} from '../shared/toast';
-import {navigateToScene} from '../../navigation/saga';
+import {showToast} from '../toast/action';
+import {navigateToScene} from '../../navigation/action';
 import {registerRequest, loginRequest, getUser} from '../../api';
 
 export function * watchInit () {

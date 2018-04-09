@@ -1,10 +1,9 @@
 
 import {call} from 'redux-saga/effects';
-import { createAction } from '../utils/reduxHelpers';
 import { takeFirst } from '../utils/sagaHelpers';
 import {navigate} from '../navigation/service';
 
-export const navigateToScene = createAction('NAVIGATE_TO_SCENE');
+import {navigateToScene} from './action';
 
 const navActions = [
   navigateToScene.getType()
