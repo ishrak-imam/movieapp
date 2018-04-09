@@ -11,6 +11,7 @@ import {
   registerReq, registerSucs, registerFail,
   logoutReq, logoutSucs
 } from './action';
+import {showToast} from '../shared/toast';
 import {navigateToScene} from '../../navigation/saga';
 import {registerRequest, loginRequest, getUser} from '../../api';
 
@@ -42,6 +43,7 @@ function * workerLogin (action) {
     yield put(init());
   } catch (e) {
     yield put(loginFail(e));
+    yield put(showToast({message: e.message}));
   }
 }
 
@@ -62,6 +64,7 @@ function * workerRegister (action) {
     yield put(loginReq(loginObj));
   } catch (e) {
     yield put(registerFail(e));
+    yield put(showToast({message: e.message}));
   }
 }
 

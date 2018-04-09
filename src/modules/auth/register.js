@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react';
 import {Screen, View, ScrollView} from '@shoutem/ui';
+import {Keyboard} from 'react-native';
 import {connect} from 'react-redux';
 import Form from '../shared/forms';
 import {REGISTER_FORM} from '../shared/forms/config';
@@ -17,6 +18,7 @@ class Register extends Component {
   }
 
   _register (obj) {
+    Keyboard.dismiss();
     this.props.dispatch(registerReq(obj));
   }
 

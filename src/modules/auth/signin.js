@@ -14,6 +14,8 @@ import {loginReq} from './action';
 import {getLogin} from './store';
 import {navigateToScene} from '../../navigation/saga';
 
+import Toast from 'react-native-root-toast';
+
 class Signin extends Component {
   constructor (props) {
     super(props);
@@ -52,6 +54,7 @@ class Signin extends Component {
   }
 
   _login (obj) {
+    Keyboard.dismiss();
     obj.strategy = 'local';
     this.props.dispatch(loginReq(obj));
   }
