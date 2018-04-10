@@ -24,6 +24,7 @@ class Signin extends Component {
     ]);
 
     this.logoDim = new Animated.Value(100);
+    this.radius = new Animated.Value(50);
     this.kbrdShow = Keyboard.addListener('keyboardDidShow', this._onKbrdShow);
     this.kbrdHide = Keyboard.addListener('keyboardDidHide', this._onKbrdHide);
   }
@@ -38,6 +39,13 @@ class Signin extends Component {
       this.logoDim,
       {
         toValue: isKbrdOpen ? 50 : 100,
+        duration: 300
+      }
+    ).start();
+    Animated.timing(
+      this.radius,
+      {
+        toValue: isKbrdOpen ? 25 : 50,
         duration: 300
       }
     ).start();
@@ -64,6 +72,7 @@ class Signin extends Component {
   }
 
   render () {
+    console.log(this.logoDim);
     const {login} = this.props;
     return (
       <Screen styleName='paper'>
@@ -73,8 +82,14 @@ class Signin extends Component {
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
           >
             <View styleName='vertical h-center v-end' style={{flex: 1, paddingBottom: 30}}>
-              <Animated.View
-                style={{width: this.logoDim, height: this.logoDim, backgroundColor: 'black'}}
+              <Animated.Image
+                style={{
+                  alignSelf: 'center',
+                  height: this.logoDim,
+                  width: this.logoDim,
+                  borderRadius: this.radius
+                }}
+                source={require('../../images/logo.png')}
               />
             </View>
             <View styleName='vertical h-center' style={{flex: 2}}>
