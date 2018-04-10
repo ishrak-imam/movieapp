@@ -52,7 +52,8 @@ class Form extends Component {
   }
 
   render () {
-    const {handleSubmit, config, loading} = this.props;
+    console.log(this.props);
+    const {valid, handleSubmit, config, loading} = this.props;
     return (
       <View>
         {this._renderInputs()}
@@ -63,7 +64,8 @@ class Form extends Component {
                 <Loader visible size={40} />
               </View>
               : <Button
-                styleName='secondary auth'
+                disabled={!valid}
+                styleName={`secondary auth ${valid ? '' : 'disable'}`}
                 onPress={handleSubmit(this._handleSubmit)}
               >
                 <Text>{config.submitText}</Text>

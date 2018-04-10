@@ -7,8 +7,8 @@ import {
 } from 'react-native';
 import BottomButton from '../shared/bottomButton';
 import {connect} from 'react-redux';
-import Form from '../shared/forms';
-import {LOGIN_FORM} from '../shared/forms/config';
+import Form from '../shared/form';
+import {LOGIN_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
 import {loginReq} from './action';
 import {getLogin} from './store';

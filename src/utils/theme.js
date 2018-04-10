@@ -8,16 +8,23 @@ const theme = getTheme();
 
 export const baseColor = '#000000';
 export const errorColor = '#a94442';
+export const inputAndButtonHeight = 40;
 
 const textInput = {
   borderBottomWidth: StyleSheet.hairlineWidth,
   width: width - 100,
   paddingVertical: 0,
-  height: 40
+  height: inputAndButtonHeight
+};
+
+const button = {
+  width: width - 100,
+  height: inputAndButtonHeight,
+  borderWidth: 0
 };
 
 const authTextInput = textInput;
-const authButton = textInput;
+const authButton = button;
 
 const errorText = {
   color: errorColor,
@@ -31,7 +38,9 @@ const customTheme = {
   'shoutem.ui.Button': {
     ...theme['shoutem.ui.Button'],
     '.auth': authButton,
-    borderColor: baseColor
+    '.disable': {
+      backgroundColor: 'grey'
+    }
   },
   'shoutem.ui.TextInput': {
     ...theme['shoutem.ui.TextInput'],
