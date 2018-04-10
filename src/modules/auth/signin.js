@@ -72,7 +72,6 @@ class Signin extends Component {
   }
 
   render () {
-    console.log(this.logoDim);
     const {login} = this.props;
     return (
       <Screen styleName='paper'>

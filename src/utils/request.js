@@ -1,7 +1,19 @@
 
 /* eslint-disable */
 
+import store from '../store'
+import {showToast} from '../modules/toast/action'
+
 const SERVER_URL = 'https://site-backend.herokuapp.com/';
+
+function notOnlineHandler() {
+  store.dispatch(showToast({message: 'Network disconnected'}));
+  return Promise.reject({
+    code: '000',
+    message: 'Network disconnected',
+    name: 'networkDisconnectedError'
+  })
+}
 
 const responseHandler = response => {
   if (response.status === 200 || response.status === 201) {
@@ -14,26 +26,34 @@ const responseHandler = response => {
 };
 
 export function postRequest (endPoint, data, headers = {}) {
-  return fetch(`${SERVER_URL}${endPoint}`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }).then(responseHandler);
+  const {connection} = store.getState()
+  if(connection.online) {
+    return fetch(`${SERVER_URL}${endPoint}`, {
+      method: 'POST',
+      headers: {
+        ...headers,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(responseHandler);
+  }
+  return notOnlineHandler()
 }
 
 export function getRequest (url, headers = {}) {
-  return fetch(`${SERVER_URL}${url}`, {
-    method: 'GET',
-    headers: {
-      ...headers,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }).then(responseHandler);
+  const {connection} = store.getState()
+  if(connection.online) {
+    return fetch(`${SERVER_URL}${url}`, {
+      method: 'GET',
+      headers: {
+        ...headers,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(responseHandler);
+  }
+  return notOnlineHandler()
 }
 
 // function buildUrl (endPoint, obj) {
