@@ -5,7 +5,7 @@ import {takeFirst, eventEmitterChannel} from '../../utils/sagaHelpers';
 
 import {
   checkConnection, connectionStatus,
-  startConnectionMonitor
+  startConnectionMonitor, connectionType
 } from './action';
 import {showToast} from '../toast/action';
 
@@ -20,9 +20,9 @@ export function * watchCheckConnection () {
 function * workerCheckConnection () {
   const connected = yield call(checkIfConnected);
   yield put(connectionStatus(connected));
-  if (!connected) {
-    yield put(showToast({message: 'Network disconnected'}));
-  }
+  yield put(showToast({
+    message: `Network ${connected ? 'connected' : 'disconnected'}`
+  }));
 }
 
 export function * watchConnection () {
@@ -37,9 +37,7 @@ function * createConnectionSubscription (action) {
     'connectionChange'
   );
   yield takeEvery(connectionChannel, function * (connection) {
-    if (connection.type !== 'none') {
-      yield put(showToast({message: 'Network connected'}));
-    }
+    yield put(connectionType(connection.type));
     yield put(checkConnection());
   });
 }
