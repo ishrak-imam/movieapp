@@ -6,7 +6,7 @@ import {
 import Loader from '../shared/loader';
 import {connect} from 'react-redux';
 import {
-  startConnectionMonitor, checkConnection
+  startConnectionMonitor
 } from '../network/action';
 import {init} from '../auth/action';
 
