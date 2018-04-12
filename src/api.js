@@ -9,9 +9,9 @@ export function registerRequest (data) {
   return postRequest('users', data);
 }
 
-export function getUser (userId, token) {
+export function getUserData (userId, jwt) {
   const headers = {
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${jwt}`
   };
   return getRequest(`users/${userId}`, headers);
 }

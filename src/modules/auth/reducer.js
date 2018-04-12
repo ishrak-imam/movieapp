@@ -3,13 +3,16 @@ import {createReducer, updateObject} from '../../utils/reduxHelpers';
 
 import {
   LOGIN_REQ, LOGIN_SUCS, LOGIN_FAIL,
+  GET_USER_SUCS, GET_USER_FAIL,
   REGISTER_REQ, REGISTER_SUCS, REGISTER_FAIL,
   LOGOUT_SUCS
 } from './action';
 
 const LOGIN = {
   loading: false,
-  user: null
+  token: null,
+  user: null,
+  error: null
 };
 
 const REGISTER = {
@@ -20,8 +23,10 @@ const REGISTER = {
 
 export const login = createReducer(LOGIN, {
   [LOGIN_REQ]: (state, payload) => updateObject(state, {loading: true, error: null}),
-  [LOGIN_SUCS]: (state, payload) => updateObject(state, {loading: false, user: payload}),
+  [LOGIN_SUCS]: (state, payload) => updateObject(state, {loading: false, token: payload}),
   [LOGIN_FAIL]: (state, payload) => updateObject(state, {loading: false, error: payload}),
+  [GET_USER_SUCS]: (state, payload) => updateObject(state, {user: payload}),
+  [GET_USER_FAIL]: (state, payload) => updateObject(state, {error: payload}),
   [LOGOUT_SUCS]: (state, payload) => updateObject(state, {loading: false, user: null})
 });
 

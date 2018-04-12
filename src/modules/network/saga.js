@@ -4,28 +4,27 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 import {takeFirst, eventEmitterChannel} from '../../utils/sagaHelpers';
 
 import {
-  checkConnection, connectionStatus,
-  startConnectionMonitor, connectionType
+  // checkConnection,
+  connectionStatus, connectionType,
+  startConnectionMonitor
 } from './action';
 import {showToast} from '../toast/action';
-import {init} from '../auth/action';
 
-function checkIfConnected () {
-  return NetInfo.isConnected.fetch();
-}
+// function checkIfConnected () {
+//   return NetInfo.isConnected.fetch();
+// }
 
-export function * watchCheckConnection () {
-  yield takeFirst(checkConnection.getType(), workerCheckConnection);
-}
+// export function * watchCheckConnection () {
+//   yield takeFirst(checkConnection.getType(), workerCheckConnection);
+// }
 
-function * workerCheckConnection () {
-  const connected = yield call(checkIfConnected);
-  yield put(connectionStatus(connected));
-  yield put(showToast({
-    message: `Network ${connected ? 'connected' : 'disconnected'}`
-  }));
-  yield put(init());
-}
+// function * workerCheckConnection () {
+//   const connected = yield call(checkIfConnected);
+//   yield put(connectionStatus(connected));
+// yield put(showToast({
+//   message: `Network ${connected ? 'connected' : 'disconnected'}`
+// }));
+// }
 
 export function * watchConnection () {
   yield takeFirst(startConnectionMonitor.getType(), createConnectionSubscription);
@@ -40,6 +39,12 @@ function * createConnectionSubscription (action) {
   );
   yield takeEvery(connectionChannel, function * (connection) {
     yield put(connectionType(connection.type));
-    yield put(checkConnection());
+    if (connection.type !== 'none') {
+      yield put(connectionStatus(true));
+      yield put(showToast({message: 'Network connected'}));
+    } else {
+      yield put(connectionStatus(false));
+      yield put(showToast({message: 'Network disconnected'}));
+    }
   });
 }

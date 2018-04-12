@@ -8,12 +8,13 @@ import {
 import {
   init,
   loginReq, loginSucs, loginFail,
+  getUser, getUserSucs, getUserFail,
   registerReq, registerSucs, registerFail,
   logoutReq, logoutSucs
 } from './action';
 import {showToast} from '../toast/action';
 import {navigateToScene} from '../../navigation/action';
-import {registerRequest, loginRequest, getUser} from '../../api';
+import {registerRequest, loginRequest, getUserData} from '../../api';
 
 export function * watchInit () {
   yield takeFirst(init.getType(), workerInit);
@@ -21,11 +22,9 @@ export function * watchInit () {
 
 function * workerInit () {
   try {
-    const accessToken = yield call(getToken);
-    const {userId} = getPayloadFromJwt(accessToken);
-    const user = yield call(getUser, userId, accessToken);
-    user.token = accessToken;
-    yield put(loginSucs(user));
+    const jwt = yield call(getToken);
+    const {userId} = getPayloadFromJwt(jwt);
+    yield put(loginSucs({jwt, userId}));
     yield put(navigateToScene({routeName: 'App'}));
   } catch (e) {
     yield put(navigateToScene({routeName: 'Auth'}));
@@ -44,6 +43,20 @@ function * workerLogin (action) {
   } catch (e) {
     yield put(loginFail(e));
     yield put(showToast({message: e.message}));
+  }
+}
+
+export function * watchGetUser () {
+  yield takeFirst(getUser.getType(), workerGetUser);
+}
+
+function * workerGetUser (action) {
+  try {
+    const {userId, jwt} = action.payload;
+    const user = yield call(getUserData, userId, jwt);
+    yield put(getUserSucs(user));
+  } catch (e) {
+    yield put(getUserFail(e));
   }
 }
 

@@ -6,12 +6,33 @@ import {
 } from '@shoutem/ui';
 
 import {connect} from 'react-redux';
-import {logoutReq} from '../auth/action';
+import {getUser, logoutReq} from '../auth/action';
+import {getLogin} from '../auth/store';
+import {bindFunctions} from '../../utils';
 
 class Home extends Component {
+  constructor (props) {
+    super(props);
+    bindFunctions.call(this, [
+      '_getUser'
+    ]);
+  }
+
+  componentDidMount () {
+    this._getUser();
+  }
+
+  _getUser () {
+    const {userId, jwt} = this.props.login.token;
+    this.props.dispatch(getUser({userId, jwt}));
+  }
   render () {
+    const {user} = this.props.login;
     return (
       <Screen>
+        <Tile styleName='text-centric'>
+          {user && <Text>Name: {user.firstName} {user.lastName}</Text>}
+        </Tile>
         <Tile styleName='text-centric'>
           <Button onPress={() => this.props.dispatch(logoutReq())}>
             <Text>Logout</Text>
@@ -22,4 +43,8 @@ class Home extends Component {
   }
 }
 
-export default connect(null, dispatch => ({dispatch}))(Home);
+const stateToProps = state => ({
+  login: getLogin(state)
+});
+
+export default connect(stateToProps, dispatch => ({dispatch}))(Home);

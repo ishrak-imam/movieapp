@@ -5,13 +5,13 @@ import {
 } from '@shoutem/ui';
 import Loader from '../shared/loader';
 import {connect} from 'react-redux';
-import {
-  startConnectionMonitor
-} from '../network/action';
+import {init} from '../auth/action';
+import {startConnectionMonitor} from '../network/action';
 
 class LoadingScreen extends Component {
   componentDidMount () {
     this.props.dispatch(startConnectionMonitor());
+    this.props.dispatch(init());
   }
   render () {
     return (
