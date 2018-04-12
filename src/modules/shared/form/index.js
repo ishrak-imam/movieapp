@@ -52,7 +52,6 @@ class Form extends Component {
   }
 
   render () {
-    console.log(this.props);
     const {valid, handleSubmit, config, loading} = this.props;
     return (
       <View>

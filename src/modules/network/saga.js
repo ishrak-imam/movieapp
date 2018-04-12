@@ -8,6 +8,7 @@ import {
   startConnectionMonitor, connectionType
 } from './action';
 import {showToast} from '../toast/action';
+import {init} from '../auth/action';
 
 function checkIfConnected () {
   return NetInfo.isConnected.fetch();
@@ -23,6 +24,7 @@ function * workerCheckConnection () {
   yield put(showToast({
     message: `Network ${connected ? 'connected' : 'disconnected'}`
   }));
+  yield put(init());
 }
 
 export function * watchConnection () {

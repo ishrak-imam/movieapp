@@ -7,7 +7,7 @@ import {
 } from './action';
 
 const CONNECTION = {
-  online: false,
+  online: true,
   type: ''
 };
 

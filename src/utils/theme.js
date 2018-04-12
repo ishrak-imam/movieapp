@@ -39,7 +39,7 @@ const customTheme = {
     ...theme['shoutem.ui.Button'],
     '.auth': authButton,
     '.disable': {
-      backgroundColor: 'grey'
+      backgroundColor: '#808080'
     }
   },
   'shoutem.ui.TextInput': {
