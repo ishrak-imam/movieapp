@@ -43,7 +43,6 @@ export function postRequest (endPoint, data, headers = {}) {
 
 export function getRequest (url, headers = {}) {
   const {connection} = store.getState()
-  console.log(url, connection)
   if(connection.online) {
     return fetch(`${SERVER_URL}${url}`, {
       method: 'GET',

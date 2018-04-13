@@ -11,7 +11,10 @@ import {
 const LOGIN = {
   loading: false,
   token: null,
-  user: null,
+  user: {
+    firstName: '',
+    lastName: ''
+  },
   error: null
 };
 
@@ -27,7 +30,7 @@ export const login = createReducer(LOGIN, {
   [LOGIN_FAIL]: (state, payload) => updateObject(state, {loading: false, error: payload}),
   [GET_USER_SUCS]: (state, payload) => updateObject(state, {user: payload}),
   [GET_USER_FAIL]: (state, payload) => updateObject(state, {error: payload}),
-  [LOGOUT_SUCS]: (state, payload) => updateObject(state, {loading: false, user: null})
+  [LOGOUT_SUCS]: (state, payload) => state // just return the initial state as no update required
 });
 
 export const register = createReducer(REGISTER, {

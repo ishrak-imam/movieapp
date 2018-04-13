@@ -14,7 +14,7 @@ class Home extends Component {
   constructor (props) {
     super(props);
     bindFunctions.call(this, [
-      '_getUser'
+      '_getUser', '_logOut'
     ]);
   }
 
@@ -26,15 +26,20 @@ class Home extends Component {
     const {userId, jwt} = this.props.login.token;
     this.props.dispatch(getUser({userId, jwt}));
   }
+
+  _logOut () {
+    this.props.dispatch(logoutReq());
+  }
+
   render () {
     const {user} = this.props.login;
     return (
       <Screen>
         <Tile styleName='text-centric'>
-          {user && <Text>Name: {user.firstName} {user.lastName}</Text>}
+          <Text>Name: {user.firstName} {user.lastName}</Text>
         </Tile>
         <Tile styleName='text-centric'>
-          <Button onPress={() => this.props.dispatch(logoutReq())}>
+          <Button onPress={this._logOut}>
             <Text>Logout</Text>
           </Button>
         </Tile>
