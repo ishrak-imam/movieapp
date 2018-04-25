@@ -14,6 +14,9 @@ import {loginReq} from './action';
 import {getLogin} from './store';
 import {navigateToScene} from '../../navigation/action';
 
+import FBSDK from 'react-native-fbsdk';
+const {LoginManager, AccessToken} = FBSDK;
+
 class Signin extends Component {
   constructor (props) {
     super(props);
@@ -66,9 +69,25 @@ class Signin extends Component {
   }
 
   _register () {
-    this.props.dispatch(navigateToScene({
-      routeName: 'Register'
-    }));
+    // this.props.dispatch(navigateToScene({
+    //   routeName: 'Register'
+    // }));
+
+    LoginManager.logInWithReadPermissions(['public_profile']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          console.log(result);
+          AccessToken.getCurrentAccessToken().then(data => {
+            console.log(data);
+          });
+        }
+      },
+      function (error) {
+        console.log('Login fail with error: ' + error);
+      }
+    );
   }
 
   render () {
