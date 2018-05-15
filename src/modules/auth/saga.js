@@ -1,6 +1,7 @@
 
 import {call, put} from 'redux-saga/effects';
 import {takeFirst} from '../../utils/sagaHelpers';
+import {delay} from 'redux-saga';
 import {
   getPayloadFromJwt,
   storeToken, getToken, removeToken
@@ -52,6 +53,7 @@ export function * watchGetUser () {
 
 function * workerGetUser (action) {
   try {
+    yield delay(0);
     const {userId, jwt} = action.payload;
     const user = yield call(getUserData, userId, jwt);
     yield put(getUserSucs(user));
