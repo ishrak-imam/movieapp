@@ -11,8 +11,12 @@ import Form from '../shared/form';
 import {LOGIN_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
 import {loginReq} from './action';
-import {getLogin} from './store';
+import {getLogin, getConnection} from './store';
 import {navigateToScene} from '../../navigation/action';
+import {
+  networkActionDispatcher,
+  genericActionDispatcher
+} from '../../utils/actionDispatcher';
 
 // import FBSDK from 'react-native-fbsdk';
 // const {LoginManager, AccessToken} = FBSDK;
@@ -65,13 +69,13 @@ class Signin extends Component {
   _login (obj) {
     Keyboard.dismiss();
     obj.strategy = 'local';
-    this.props.dispatch(loginReq(obj));
+    const {dispatch, connection} = this.props;
+    networkActionDispatcher(dispatch, loginReq(obj), connection);
   }
 
   _register () {
-    this.props.dispatch(navigateToScene({
-      routeName: 'Register'
-    }));
+    const {dispatch} = this.props;
+    genericActionDispatcher(dispatch, navigateToScene({routeName: 'Register'}));
 
     // LoginManager.logInWithReadPermissions(['public_profile']).then(
     //   function (result) {
@@ -129,7 +133,8 @@ class Signin extends Component {
 }
 
 const stateToProps = state => ({
-  login: getLogin(state)
+  login: getLogin(state),
+  connection: getConnection(state)
 });
 
 export default connect(stateToProps, dispatch => ({dispatch}))(Signin);

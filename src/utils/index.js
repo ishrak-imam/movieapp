@@ -8,18 +8,18 @@ export function bindFunctions (functions) {
   });
 }
 
-export function getPayloadFromJwt (jwt) {
+export const getPayloadFromJwt = jwt => {
   return jwtDecode(jwt);
-}
+};
 
-export function storeToken (token) {
+export const storeToken = token => {
   return AsyncStorage.setItem('jwt-token', token);
-}
+};
 
-export function getToken () {
+export const getToken = () => {
   return AsyncStorage.getItem('jwt-token');
-}
+};
 
-export function removeToken () {
+export const removeToken = () => {
   return AsyncStorage.removeItem('jwt-token');
-}
+};
