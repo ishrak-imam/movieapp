@@ -19,7 +19,13 @@ class Register extends Component {
 
   _register (obj) {
     Keyboard.dismiss();
-    this.props.dispatch(registerReq(obj));
+    const {firstName, lastName, email, password} = obj;
+    this.props.dispatch(registerReq({
+      firstName,
+      lastName,
+      email,
+      password
+    }));
   }
 
   render () {

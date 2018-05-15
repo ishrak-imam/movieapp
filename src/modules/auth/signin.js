@@ -14,8 +14,8 @@ import {loginReq} from './action';
 import {getLogin} from './store';
 import {navigateToScene} from '../../navigation/action';
 
-import FBSDK from 'react-native-fbsdk';
-const {LoginManager, AccessToken} = FBSDK;
+// import FBSDK from 'react-native-fbsdk';
+// const {LoginManager, AccessToken} = FBSDK;
 
 class Signin extends Component {
   constructor (props) {
@@ -69,25 +69,25 @@ class Signin extends Component {
   }
 
   _register () {
-    // this.props.dispatch(navigateToScene({
-    //   routeName: 'Register'
-    // }));
+    this.props.dispatch(navigateToScene({
+      routeName: 'Register'
+    }));
 
-    LoginManager.logInWithReadPermissions(['public_profile']).then(
-      function (result) {
-        if (result.isCancelled) {
-          console.log('Login cancelled');
-        } else {
-          console.log(result);
-          AccessToken.getCurrentAccessToken().then(data => {
-            console.log(data);
-          });
-        }
-      },
-      function (error) {
-        console.log('Login fail with error: ' + error);
-      }
-    );
+    // LoginManager.logInWithReadPermissions(['public_profile']).then(
+    //   function (result) {
+    //     if (result.isCancelled) {
+    //       console.log('Login cancelled');
+    //     } else {
+    //       console.log(result);
+    //       AccessToken.getCurrentAccessToken().then(data => {
+    //         console.log(data);
+    //       });
+    //     }
+    //   },
+    //   function (error) {
+    //     console.log('Login fail with error: ' + error);
+    //   }
+    // );
   }
 
   render () {
@@ -133,85 +133,3 @@ const stateToProps = state => ({
 });
 
 export default connect(stateToProps, dispatch => ({dispatch}))(Signin);
-
-// import React from 'react';
-// import {
-//   TouchableOpacity, View, Text,
-//   FlatList
-// } from 'react-native';
-
-// class MyListItem extends React.Component {
-//   constructor () {
-//     super();
-//     this._onPress = this._onPress.bind(this);
-//   }
-//   _onPress () {
-//     this.props.onPressItem(this.props.id);
-//   }
-
-//   shouldComponentUpdate (nextProps) {
-//     return nextProps.selected !== this.props.selected;
-//   }
-
-//   render () {
-//     const backgroundColor = `${this.props.selected ? 'limegreen' : 'white'}`;
-//     return (
-//       <TouchableOpacity onPress={this._onPress}>
-//         <View style={{height: 50, width: 200, padding: 10, borderWidth: 1, backgroundColor}}>
-//           <Text>
-//             {this.props.title}
-//           </Text>
-//         </View>
-//       </TouchableOpacity>
-//     );
-//   }
-// }
-
-// export default class MultiSelectList extends React.Component {
-//   constructor () {
-//     super();
-//     let data = [];
-//     for (let i = 1; i <= 100; i++) {
-//       data.push({id: i, title: `title for ${i}`});
-//     }
-//     this.state = {
-//       data,
-//       selected: 1
-//     };
-//     this._keyExtractor = this._keyExtractor.bind(this);
-//     this._onPressItem = this._onPressItem.bind(this);
-//     this._renderItem = this._renderItem.bind(this);
-//   }
-
-//   _keyExtractor (item) {
-//     return item.id.toString();
-//   }
-
-//   _onPressItem (id) {
-//     this.setState({selected: id});
-//   }
-
-//   _renderItem ({item}) {
-//     return (
-//       <MyListItem
-//         id={item.id}
-//         onPressItem={this._onPressItem}
-//         selected={item.id === this.state.selected}
-//         title={item.title}
-//       />
-//     );
-//   }
-
-//   render () {
-//     return (
-//       <View style={{paddingLeft: 20}}>
-//         <FlatList
-//           data={this.state.data}
-//           extraData={this.state}
-//           keyExtractor={this._keyExtractor}
-//           renderItem={this._renderItem}
-//         />
-//       </View>
-//     );
-//   }
-// }
