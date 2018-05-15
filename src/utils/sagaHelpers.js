@@ -9,9 +9,9 @@ export const takeFirst = (patternOrChannel, saga, ...args) => fork(function * ()
   }
 });
 
-export const eventEmitterChannel = (emitter, methods, type) => {
-  return eventChannel((emit) => {
-    emitter[methods.on](type, emit);
-    return () => emitter[methods.off](type, emit);
+export const eventEmitterChannel = (emitter, methods, eventName) => {
+  return eventChannel(notifire => {
+    emitter[methods.on](eventName, notifire);
+    return () => emitter[methods.off](eventName, notifire);
   });
 };

@@ -5,7 +5,8 @@ import {takeFirst, eventEmitterChannel} from '../../utils/sagaHelpers';
 
 import {
   // checkConnection,
-  connectionStatus, connectionType,
+  connectionStatus,
+  connectionType,
   startConnectionMonitor
 } from './action';
 import {showToast} from '../toast/action';
