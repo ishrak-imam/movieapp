@@ -7,6 +7,8 @@ export const LOGIN_REQ = 'LOGIN_REQ';
 export const LOGIN_SUCS = 'LOGIN_SUCS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 
+export const FACEBOOK_LOGIN = 'FACEBOOK_LOGIN';
+
 export const GET_USER = 'GET_USER';
 export const GET_USER_SUCS = 'GET_USER_SUCS';
 export const GET_USER_FAIL = 'GET_USER_FAIL';
@@ -23,6 +25,8 @@ export const init = createAction(INIT);
 export const loginReq = createAction(LOGIN_REQ);
 export const loginSucs = createAction(LOGIN_SUCS);
 export const loginFail = createAction(LOGIN_FAIL);
+
+export const facebookLoginReq = createAction(FACEBOOK_LOGIN);
 
 export const getUser = createAction(GET_USER);
 export const getUserSucs = createAction(GET_USER_SUCS);

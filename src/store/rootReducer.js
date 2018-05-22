@@ -18,9 +18,8 @@ const appReducer = combineReducers({
 const rootReduces = (state, action) => {
   // clean-up state on logout
   if (action.type === LOGOUT_SUCS) {
-    // keep network status data as it is.
     const {connection} = state;
-    state = {connection};
+    state = {connection}; // keep network status data as it is
   }
   return appReducer(state, action);
 };

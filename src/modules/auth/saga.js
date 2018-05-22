@@ -9,6 +9,7 @@ import {
 import {
   init,
   loginReq, loginSucs, loginFail,
+  facebookLoginReq,
   getUser, getUserSucs, getUserFail,
   registerReq, registerSucs, registerFail,
   logoutReq, logoutSucs
@@ -20,6 +21,12 @@ import {
   loginRequest,
   getUserData
 } from './api';
+
+import {
+  promptFbLogin,
+  getFbAccessToken,
+  getFbUserData
+} from '../../utils/fbLogin';
 
 export function * watchInit () {
   yield takeFirst(init.getType(), workerInit);
@@ -86,6 +93,31 @@ function * workerRegister (action) {
   } catch (e) {
     yield put(registerFail(e));
     yield put(showToast({message: e.message}));
+  }
+}
+
+export function * watchFacebookLogin () {
+  yield takeFirst(facebookLoginReq.getType(), workerFacebookLogin);
+}
+
+function * workerFacebookLogin () {
+  try {
+    const fbLogin = yield call(promptFbLogin);
+    if (fbLogin.isCancelled) {
+      /* eslint-disable */
+      throw 'Login cancelled';
+    }
+    const {accessToken} = yield call(getFbAccessToken)
+    const user = yield call(getFbUserData, accessToken)
+    const registerObj = {
+      name: user.name,
+      email: user.email,
+      image: user.picture.data.url,
+      strategy: 'social',
+    }
+    yield put(registerReq(registerObj))
+  } catch (e) {
+    yield put(showToast({message: e}));
   }
 }
 

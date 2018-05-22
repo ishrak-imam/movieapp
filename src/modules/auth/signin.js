@@ -10,17 +10,13 @@ import {connect} from 'react-redux';
 import Form from '../shared/form';
 import {LOGIN_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
-import {loginReq, registerReq} from './action';
+import {loginReq, facebookLoginReq} from './action';
 import {getLogin, getConnection} from './store';
 import {navigateToScene} from '../../navigation/action';
 import {
   networkActionDispatcher,
-  genericActionDispatcher,
-  toastActionDispatcher
+  genericActionDispatcher
 } from '../../utils/actionDispatcher';
-
-import FBSDK from 'react-native-fbsdk';
-const {LoginManager, AccessToken} = FBSDK;
 
 class Signin extends Component {
   constructor (props) {
@@ -82,29 +78,7 @@ class Signin extends Component {
 
   _facebookLogin () {
     const {dispatch, connection} = this.props;
-    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
-      response => {
-        if (response.isCancelled) {
-          toastActionDispatcher(dispatch, 'Login cancelled');
-        } else {
-          AccessToken.getCurrentAccessToken().then(({accessToken}) => {
-            /* eslint-disable */
-            fetch('https://graph.facebook.com/v2.5/me?fields=email,name,picture&access_token=' + accessToken)
-            .then(response => response.json())
-            .then(data => {
-              const registerObj = {
-                name: data.name,
-                email: data.email,
-                image: data.picture.data.url,
-                strategy: 'social',
-              }
-              networkActionDispatcher(dispatch, registerReq(registerObj), connection)
-            });
-          });
-        }
-      },
-      error => toastActionDispatcher(dispatch, 'Login failed')
-    );
+    networkActionDispatcher(dispatch, facebookLoginReq(), connection);
   }
 
   render () {

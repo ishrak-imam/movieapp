@@ -39,7 +39,7 @@ class Home extends Component {
           <Text>Name: {user.name}</Text>
         </Tile>
         <Tile styleName='text-centric'>
-          <Button onPress={this._logOut}>
+          <Button onPress={this._logOut} style={{borderWidth: 1, borderColor: '#000', borderRadius: 20, width: 100}}>
             <Text>Logout</Text>
           </Button>
         </Tile>
