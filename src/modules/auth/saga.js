@@ -15,7 +15,11 @@ import {
 } from './action';
 import {showToast} from '../toast/action';
 import {navigateToScene} from '../../navigation/action';
-import {registerRequest, loginRequest, getUserData} from '../../api';
+import {
+  registerRequest,
+  loginRequest,
+  getUserData
+} from './api';
 
 export function * watchInit () {
   yield takeFirst(init.getType(), workerInit);

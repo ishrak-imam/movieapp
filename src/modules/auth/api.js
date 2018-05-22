@@ -1,5 +1,5 @@
 
-import {postRequest, getRequest} from './utils/request';
+import {postRequest, getRequest} from '../../utils/request';
 
 export const loginRequest = data => {
   return postRequest('authentication', data);
