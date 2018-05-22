@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Screen, View} from '@shoutem/ui';
+import {Screen, View, Button, Text} from '@shoutem/ui';
 import {
   Animated, Keyboard, Platform,
   KeyboardAvoidingView
@@ -10,16 +10,17 @@ import {connect} from 'react-redux';
 import Form from '../shared/form';
 import {LOGIN_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
-import {loginReq} from './action';
+import {loginReq, registerReq} from './action';
 import {getLogin, getConnection} from './store';
 import {navigateToScene} from '../../navigation/action';
 import {
   networkActionDispatcher,
-  genericActionDispatcher
+  genericActionDispatcher,
+  toastActionDispatcher
 } from '../../utils/actionDispatcher';
 
-// import FBSDK from 'react-native-fbsdk';
-// const {LoginManager, AccessToken} = FBSDK;
+import FBSDK from 'react-native-fbsdk';
+const {LoginManager, AccessToken} = FBSDK;
 
 class Signin extends Component {
   constructor (props) {
@@ -27,7 +28,8 @@ class Signin extends Component {
     bindFunctions.call(this, [
       '_logoResize', '_login',
       '_register',
-      '_onKbrdShow', '_onKbrdHide'
+      '_onKbrdShow', '_onKbrdHide',
+      '_facebookLogin'
     ]);
 
     this.logoDim = new Animated.Value(100);
@@ -76,22 +78,33 @@ class Signin extends Component {
   _register () {
     const {dispatch} = this.props;
     genericActionDispatcher(dispatch, navigateToScene({routeName: 'Register'}));
+  }
 
-    // LoginManager.logInWithReadPermissions(['public_profile']).then(
-    //   function (result) {
-    //     if (result.isCancelled) {
-    //       console.log('Login cancelled');
-    //     } else {
-    //       console.log(result);
-    //       AccessToken.getCurrentAccessToken().then(data => {
-    //         console.log(data);
-    //       });
-    //     }
-    //   },
-    //   function (error) {
-    //     console.log('Login fail with error: ' + error);
-    //   }
-    // );
+  _facebookLogin () {
+    const {dispatch, connection} = this.props;
+    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
+      response => {
+        if (response.isCancelled) {
+          toastActionDispatcher(dispatch, 'Login cancelled');
+        } else {
+          AccessToken.getCurrentAccessToken().then(({accessToken}) => {
+            /* eslint-disable */
+            fetch('https://graph.facebook.com/v2.5/me?fields=email,name,picture&access_token=' + accessToken)
+            .then(response => response.json())
+            .then(data => {
+              const registerObj = {
+                name: data.name,
+                email: data.email,
+                image: data.picture.data.url,
+                strategy: 'social',
+              }
+              networkActionDispatcher(dispatch, registerReq(registerObj), connection)
+            });
+          });
+        }
+      },
+      error => toastActionDispatcher(dispatch, 'Login failed')
+    );
   }
 
   render () {
@@ -121,6 +134,13 @@ class Signin extends Component {
                 onSubmit={this._login}
                 config={LOGIN_FORM}
               />
+              <Button
+                style={{marginTop: 20}}
+                styleName={'secondary auth'}
+                onPress={this._facebookLogin}
+              >
+                <Text>Facebook</Text>
+              </Button>
             </View>
           </KeyboardAvoidingView>
         </View>

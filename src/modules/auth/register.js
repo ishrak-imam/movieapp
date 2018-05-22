@@ -7,7 +7,8 @@ import Form from '../shared/form';
 import {REGISTER_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
 import {registerReq} from './action';
-import {getRegister} from './store';
+import {getRegister, getConnection} from './store';
+import {networkActionDispatcher} from '../../utils/actionDispatcher';
 
 class Register extends Component {
   constructor (props) {
@@ -20,12 +21,17 @@ class Register extends Component {
   _register (obj) {
     Keyboard.dismiss();
     const {firstName, lastName, email, password} = obj;
-    this.props.dispatch(registerReq({
-      firstName,
-      lastName,
-      email,
-      password
-    }));
+    const {dispatch, connection} = this.props;
+    networkActionDispatcher(
+      dispatch,
+      registerReq({
+        name: `${firstName} ${lastName}`,
+        email,
+        password,
+        strategy: 'local'
+      }),
+      connection
+    );
   }
 
   render () {
@@ -52,7 +58,8 @@ class Register extends Component {
 }
 
 const stateToProps = state => ({
-  register: getRegister(state)
+  register: getRegister(state),
+  connection: getConnection(state)
 });
 
 export default connect(stateToProps, dispatch => ({dispatch}))(Register);

@@ -36,7 +36,7 @@ class Home extends Component {
     return (
       <Screen>
         <Tile styleName='text-centric'>
-          <Text>Name: {user.firstName} {user.lastName}</Text>
+          <Text>Name: {user.name}</Text>
         </Tile>
         <Tile styleName='text-centric'>
           <Button onPress={this._logOut}>

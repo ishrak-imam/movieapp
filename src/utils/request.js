@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 const SERVER_URL = 'https://site-backend.herokuapp.com/';
+// const SERVER_URL = 'http://192.168.1.122:8888/';
 
 const responseHandler = response => {
   if (response.status === 200 || response.status === 201) {

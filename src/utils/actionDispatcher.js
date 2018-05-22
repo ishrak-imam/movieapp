@@ -10,3 +10,7 @@ export const networkActionDispatcher = (dispatch, action, connection) => {
 export const genericActionDispatcher = (dispatch, action) => {
   dispatch(action);
 };
+
+export const toastActionDispatcher = (dispatch, message) => {
+  dispatch(showToast({message}));
+};

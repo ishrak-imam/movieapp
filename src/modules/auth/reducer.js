@@ -25,7 +25,7 @@ const REGISTER = {
 };
 
 export const login = createReducer(LOGIN, {
-  [LOGIN_REQ]: (state, payload) => updateObject(state, {loading: true, error: null}),
+  [LOGIN_REQ]: (state, payload) => updateObject(state, {loading: payload.strategy === 'local', error: null}),
   [LOGIN_SUCS]: (state, payload) => updateObject(state, {loading: false, token: payload}),
   [LOGIN_FAIL]: (state, payload) => updateObject(state, {loading: false, error: payload}),
   [GET_USER_SUCS]: (state, payload) => updateObject(state, {user: payload}),

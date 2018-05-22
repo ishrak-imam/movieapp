@@ -70,12 +70,14 @@ function * workerRegister (action) {
   try {
     const response = yield call(registerRequest, action.payload);
     yield put(registerSucs(response));
-    const {email, password} = action.payload;
+    const {email, password, strategy} = action.payload;
     const loginObj = {
       email,
-      password,
-      strategy: 'local'
+      strategy
     };
+    if (strategy === 'local') {
+      loginObj.password = password;
+    }
     yield put(loginReq(loginObj));
   } catch (e) {
     yield put(registerFail(e));
