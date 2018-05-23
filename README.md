@@ -1,2 +1,2 @@
 
-working with react-navigation.
+This is personal project under continuous development with contributions in free time. The aim is to set-up a starting point of a react native application with other exciting libraries like redux, redux-saga, react-navigation, immutable-js and others. A well organized application/folder structure is tried to adopt here in order to facilitate maintainability and to keep it extensible as well.
