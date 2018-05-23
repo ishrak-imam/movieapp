@@ -8,6 +8,7 @@ import {
 import BottomButton from '../shared/bottomButton';
 import {connect} from 'react-redux';
 import Form from '../shared/form';
+import Loader from '../shared/loader';
 import {LOGIN_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
 import {loginReq, facebookLoginReq} from './action';
@@ -108,13 +109,20 @@ class Signin extends Component {
                 onSubmit={this._login}
                 config={LOGIN_FORM}
               />
-              <Button
-                style={{marginTop: 20}}
-                styleName={'secondary auth'}
-                onPress={this._facebookLogin}
-              >
-                <Text>Facebook</Text>
-              </Button>
+              <View style={{marginTop: 20}}>
+                {
+                  login.fbLoading
+                    ? <View style={{alignItems: 'center'}}>
+                      <Loader visible size={40} />
+                    </View>
+                    : <Button
+                      styleName={'secondary auth'}
+                      onPress={this._facebookLogin}
+                    >
+                      <Text>Facebook</Text>
+                    </Button>
+                }
+              </View>
             </View>
           </KeyboardAvoidingView>
         </View>
