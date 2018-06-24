@@ -67,9 +67,15 @@ class Signin extends Component {
 
   _login (obj) {
     Keyboard.dismiss();
-    obj.strategy = 'local';
     const {dispatch, connection} = this.props;
-    networkActionDispatcher(dispatch, loginReq(obj), connection);
+    networkActionDispatcher(
+      dispatch,
+      loginReq({
+        email: obj.get('email'),
+        password: obj.get('password'),
+        strategy: 'local'
+      }),
+      connection);
   }
 
   _register () {
@@ -105,13 +111,13 @@ class Signin extends Component {
             <View styleName='vertical h-center' style={{flex: 2}}>
               <Form
                 key={LOGIN_FORM.name}
-                loading={login.loading}
+                loading={login.get('loading')}
                 onSubmit={this._login}
                 config={LOGIN_FORM}
               />
               <View style={{marginTop: 20}}>
                 {
-                  login.fbLoading
+                  login.get('fbLoading')
                     ? <View style={{alignItems: 'center'}}>
                       <Loader visible size={40} />
                     </View>

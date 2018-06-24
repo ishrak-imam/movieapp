@@ -20,14 +20,13 @@ class Register extends Component {
 
   _register (obj) {
     Keyboard.dismiss();
-    const {firstName, lastName, email, password} = obj;
     const {dispatch, connection} = this.props;
     networkActionDispatcher(
       dispatch,
       registerReq({
-        name: `${firstName} ${lastName}`,
-        email,
-        password,
+        name: `${obj.get('firstName')} ${obj.get('lastName')}`,
+        email: obj.get('email'),
+        password: obj.get('password'),
         strategy: 'local'
       }),
       connection
@@ -46,7 +45,7 @@ class Register extends Component {
           >
             <Form
               key={REGISTER_FORM.name}
-              loading={register.loading}
+              loading={register.get('loading')}
               onSubmit={this._register}
               config={REGISTER_FORM}
             />

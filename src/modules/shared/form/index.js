@@ -6,7 +6,7 @@ import {
 } from '@shoutem/ui';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form/immutable';
 import Loader from '../loader';
 import {errorColor} from '../../../utils/theme';
 

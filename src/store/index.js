@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './rootReducer';
 
 import Logger from '../middlewares/logger';
@@ -16,11 +16,11 @@ if (__DEV__) {
 }
 /* eslint-disable */
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(...middlewares))
+  applyMiddleware(...middlewares)
 )
 
 sagaMiddleware.run(rootSaga)

@@ -17,12 +17,12 @@ export const LOGIN_FORM = {
   ],
   validate: values => {
     const errors = {};
-    if (!values.email) {
+    if (!values.get('email')) {
       errors.email = 'Enter email';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.get('email'))) {
       errors.email = 'Enter a valid email';
     }
-    if (!values.password) {
+    if (!values.get('password')) {
       errors.password = 'Enter password';
     }
     return errors;
@@ -64,21 +64,21 @@ export const REGISTER_FORM = {
   ],
   validate: values => {
     const errors = {};
-    if (!values.firstName) {
+    if (!values.get('firstName')) {
       errors.firstName = 'Enter first name';
     }
-    if (!values.lastName) {
+    if (!values.get('lastName')) {
       errors.lastName = 'Enter last name';
     }
-    if (!values.email) {
+    if (!values.get('email')) {
       errors.email = 'Enter email';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.get('email'))) {
       errors.email = 'Enter a valid email';
     }
-    if (!values.password) {
+    if (!values.get('password')) {
       errors.password = 'Enter password';
     }
-    if (values.password !== values.confirmPassword) {
+    if (values.get('password') !== values.get('confirmPassword')) {
       errors.confirmPassword = 'Confirm password does not match';
     }
     return errors;

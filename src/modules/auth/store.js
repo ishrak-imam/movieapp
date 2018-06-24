@@ -1,4 +1,4 @@
 
-export const getLogin = state => state.login;
-export const getRegister = state => state.register;
-export const getConnection = state => state.connection;
+export const getLogin = state => state.get('login');
+export const getRegister = state => state.get('register');
+export const getConnection = state => state.get('connection');

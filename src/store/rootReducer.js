@@ -1,5 +1,5 @@
 
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 
 import {
   LOGOUT_SUCS
@@ -7,7 +7,7 @@ import {
 
 import * as authReducers from '../modules/auth/reducer';
 import * as connectionReducer from '../modules/network/reducer';
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form/immutable';
 
 const appReducer = combineReducers({
   form: formReducer,
@@ -15,13 +15,13 @@ const appReducer = combineReducers({
   ...authReducers
 });
 
-const rootReduces = (state, action) => {
-  // clean-up state on logout
-  if (action.type === LOGOUT_SUCS) {
-    const {connection} = state;
-    state = {connection}; // keep network status data as it is
-  }
-  return appReducer(state, action);
-};
+// const rootReduces = (state, action) => {
+//   // clean-up state on logout
+//   if (action.type === LOGOUT_SUCS) {
+//     const {connection} = state;
+//     state = {connection}; // keep network status data as it is
+//   }
+//   return appReducer(state, action);
+// };
 
-export default rootReduces;
+export default appReducer;
