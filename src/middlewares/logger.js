@@ -10,7 +10,7 @@ const logger = store => next => action => {
   const result = next(action);
   if (!reduxFormActions(action.type)) {
     console.log('%c DISPATCHING      :: ', 'color: green', action);
-    console.log('%c NEXT STATE       :: ', 'color: green', store.getState());
+    console.log('%c NEXT STATE       :: ', 'color: green', store.getState().toJS());
   }
   return result;
 };

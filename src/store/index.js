@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './rootReducer';
 
+import {getInitialState} from '../utils/initialState';
+
 import Logger from '../middlewares/logger';
 
 import createSagaMiddleware from 'redux-saga';
@@ -18,8 +20,11 @@ if (__DEV__) {
 
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
+
+
 const store = createStore(
   rootReducer,
+  getInitialState(),
   applyMiddleware(...middlewares)
 )
 
