@@ -6,6 +6,7 @@ import LoadingScreen from '../modules/auth/loadingScreen';
 import Signin from '../modules/auth/signin';
 import Register from '../modules/auth/register';
 import Home from '../modules/home';
+import Users from '../modules/users';
 
 const authStack = StackNavigator(
   {
@@ -34,6 +35,12 @@ const appStack = StackNavigator(
       screen: connectTheme(Home),
       navigationOptions: {
         title: 'Home'
+      }
+    },
+    Users: {
+      screen: connectTheme(Users),
+      navigationOptions: {
+        title: 'Users'
       }
     }
   },

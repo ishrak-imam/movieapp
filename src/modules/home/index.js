@@ -9,12 +9,15 @@ import {connect} from 'react-redux';
 import {getUser, logoutReq} from '../auth/action';
 import {getLogin} from '../auth/store';
 import {bindFunctions} from '../../utils';
+import {navigateToScene} from '../../navigation/action';
+import {genericActionDispatcher} from '../../utils/actionDispatcher';
 
 class Home extends Component {
   constructor (props) {
     super(props);
     bindFunctions.call(this, [
-      '_getUser', '_logOut'
+      '_getUser', '_logOut',
+      '_toUsers'
     ]);
   }
 
@@ -23,9 +26,7 @@ class Home extends Component {
   }
 
   _getUser () {
-    const {login} = this.props;
-    const userId = login.getIn(['token', 'userId']);
-    const jwt = login.getIn(['token', 'jwt']);
+    const {userId, jwt} = this.props.login.get('token');
     this.props.dispatch(getUser({userId, jwt}));
   }
 
@@ -33,14 +34,22 @@ class Home extends Component {
     this.props.dispatch(logoutReq());
   }
 
+  _toUsers () {
+    const {dispatch} = this.props;
+    genericActionDispatcher(dispatch, navigateToScene({routeName: 'Users'}));
+  }
+
   render () {
-    const {login} = this.props;
+    const user = this.props.login.get('user');
     return (
       <Screen>
         <Tile styleName='text-centric'>
-          <Text>Name: {login.getIn(['user', 'name'])}</Text>
+          <Text>Name: {user.name}</Text>
         </Tile>
         <Tile styleName='text-centric'>
+          <Button onPress={this._toUsers} style={{borderWidth: 1, borderColor: '#000', borderRadius: 20, width: 100}}>
+            <Text>Users</Text>
+          </Button>
           <Button onPress={this._logOut} style={{borderWidth: 1, borderColor: '#000', borderRadius: 20, width: 100}}>
             <Text>Logout</Text>
           </Button>

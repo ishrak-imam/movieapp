@@ -11,7 +11,7 @@ const logger = store => next => action => {
   if (!reduxFormActions(action.type)) {
     console.groupCollapsed('%c action', 'color: grey  ', action.type);
     console.log('%c DISPATCH  :: ', 'color: green', action);
-    console.log('%c NXTSTATE  :: ', 'color: green', store.getState().toJS());
+    console.log('%c NXTSTATE  :: ', 'color: green', store.getState());
     console.groupEnd();
   }
   return result;

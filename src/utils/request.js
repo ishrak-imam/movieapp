@@ -36,6 +36,12 @@ export const getRequest = (url, headers = {}) => {
   }).then(responseHandler);
 }
 
+export const getUserData = (url) => {
+  return fetch(url, {
+    method: 'GET'
+  }).then(responseHandler)
+}
+
 // function buildUrl (endPoint, obj) {
 //   let url = `${SERVER_URL}${endPoint}`;
 //   if (obj) url = `${url}?${serialize(obj)}`; // for GET requests with query parameters

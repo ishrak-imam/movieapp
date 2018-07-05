@@ -7,12 +7,14 @@ import {
 
 import * as authReducers from '../modules/auth/reducer';
 import * as connectionReducer from '../modules/network/reducer';
+import * as userReducer from '../modules/users/reducer';
 import { reducer as formReducer } from 'redux-form/immutable';
 
 const appReducer = combineReducers({
   form: formReducer,
   ...connectionReducer,
-  ...authReducers
+  ...authReducers,
+  ...userReducer
 });
 
 const rootReduces = (state, action) => {

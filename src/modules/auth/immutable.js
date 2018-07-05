@@ -5,7 +5,10 @@ export const LOGIN_INITIAL_STATE = getMap({
   loading: false,
   fbLoading: false,
   token: null,
-  user: null,
+  user: {
+    name: '',
+    email: ''
+  },
   error: null
 });
 

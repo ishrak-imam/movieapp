@@ -7,7 +7,8 @@ import Form from '../shared/form';
 import {REGISTER_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
 import {registerReq} from './action';
-import {getRegister, getConnection} from './store';
+import {getRegister} from './store';
+import {getConnection} from '../../utils/store';
 import {networkActionDispatcher} from '../../utils/actionDispatcher';
 
 class Register extends Component {
