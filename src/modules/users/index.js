@@ -14,7 +14,9 @@ import {bindFunctions} from '../../utils';
 class MyListItem extends Component {
   constructor () {
     super();
-    this._onPress = this._onPress.bind(this);
+    bindFunctions.call(this, [
+      '_onPress'
+    ]);
   }
 
   _onPress () {
@@ -52,7 +54,8 @@ class Users extends Component {
     super(props);
     bindFunctions.call(this, [
       '_renderItem', '_itemSeparator',
-      '_keyExtractor', '_onPressItem'
+      '_keyExtractor', '_onPressItem',
+      '_loadMore'
     ]);
     this.state = {
       selected: null
@@ -60,7 +63,14 @@ class Users extends Component {
   }
 
   componentDidMount () {
-    this.props.dispatch(userGetReq());
+    const {users} = this.props;
+    if (!users.get('ids').size > 0) {
+      const metadata = this.props.users.get('metadata');
+      this.props.dispatch(userGetReq({
+        page: metadata.get('page'),
+        results: metadata.get('results')
+      }));
+    }
   }
 
   _onPressItem (id) {
@@ -88,15 +98,25 @@ class Users extends Component {
     return item;
   }
 
+  _loadMore () {
+    const metadata = this.props.users.get('metadata');
+    this.props.dispatch(userGetReq({
+      page: metadata.get('page') + 1,
+      results: metadata.get('results')
+    }));
+  }
+
   render () {
     const {users} = this.props;
     return (
-      <View style={{padding: 20}}>
+      <View style={{padding: 10}}>
         <FlatList
           data={users.get('ids').toArray()}
           renderItem={this._renderItem}
           ItemSeparatorComponent={this._itemSeparator}
           keyExtractor={this._keyExtractor}
+          onEndReached={this._loadMore}
+          extraData={this.state.selected}
         />
       </View>
     );

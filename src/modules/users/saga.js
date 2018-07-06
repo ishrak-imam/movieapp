@@ -36,7 +36,8 @@ export function * watchUserGetReq () {
 
 function * workerUserGetReq (action) {
   try {
-    let users = yield call(getUsers);
+    const {payload} = action;
+    let users = yield call(getUsers, payload);
     yield put(userGetSucs(formatUsers(users)));
   } catch (e) {
     yield put(userGetFail);

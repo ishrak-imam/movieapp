@@ -5,5 +5,8 @@ export const USER_INITIAL_STATE = getMap({
   loading: false,
   ids: getList([]),
   listById: getMap({}),
-  metadata: getMap({})
+  metadata: getMap({
+    page: 1,
+    results: 20
+  })
 });

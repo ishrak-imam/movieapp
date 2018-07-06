@@ -1,6 +1,6 @@
 
 import {getUserData} from '../../utils/request';
 
-export const getUsers = () => {
-  return getUserData('https://randomuser.me/api/?page=1&results=30');
+export const getUsers = (meta) => {
+  return getUserData(`https://randomuser.me/api/?page=${meta.page}&results=${meta.results}`);
 };
