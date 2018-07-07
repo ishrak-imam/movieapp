@@ -6,9 +6,11 @@ const reduxFormActions = (actionName) => {
   return SHOW_REDUX_FORM_ACTIONS ? false : regex.test(actionName);
 };
 
+const isDebuggingEnabled = (typeof atob !== 'undefined');
+
 const logger = store => next => action => {
   const result = next(action);
-  if (!reduxFormActions(action.type)) {
+  if (!reduxFormActions(action.type) && isDebuggingEnabled) {
     console.groupCollapsed('%c action', 'color: grey  ', action.type);
     console.log('%c DISPATCH  :: ', 'color: green', action);
     console.log('%c NXTSTATE  :: ', 'color: green', store.getState());
