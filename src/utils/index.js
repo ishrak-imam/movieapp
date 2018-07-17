@@ -4,7 +4,9 @@ import {AsyncStorage} from 'react-native';
 
 export function bindFunctions (functions) {
   functions.forEach(f => {
-    this[f] = this[f].bind(this);
+    if (typeof this[f] === 'function') {
+      this[f] = this[f].bind(this);
+    }
   });
 }
 
