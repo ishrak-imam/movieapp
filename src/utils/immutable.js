@@ -32,3 +32,11 @@ export const getList = plainArray => {
 export const concatList = (list1, list2) => {
   return list1.concat(list2);
 };
+
+/**
+ * Data access methods
+ */
+
+export const readValue = (of, from) => {
+  return from.get(of);
+};
