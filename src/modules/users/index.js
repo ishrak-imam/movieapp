@@ -20,7 +20,7 @@ class MyListItem extends Component {
   }
 
   _onPress () {
-    this.props.onPressItem(this.props.item.id);
+    this.props.onPressItem(this.props.item.get('id'));
   }
 
   shouldComponentUpdate (nextProps) {
@@ -35,12 +35,12 @@ class MyListItem extends Component {
         <Row style={{backgroundColor}}>
           <Image
             styleName='small-avatar top'
-            source={{ uri: item.picture.thumbnail }}
+            source={{ uri: item.getIn(['picture', 'thumbnail']) }}
           />
           <View styleName='vertical'>
             <View styleName='horizontal space-between'>
-              <Subtitle>{item.name.first}</Subtitle>
-              <Caption>{item.email}</Caption>
+              <Subtitle>{item.getIn(['name', 'first'])}</Subtitle>
+              <Caption>{item.get('email')}</Caption>
             </View>
           </View>
         </Row>

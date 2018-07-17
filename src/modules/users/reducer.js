@@ -22,7 +22,7 @@ export const users = createReducer(USER_INITIAL_STATE, {
         loading: false,
         ids: concatList(state.get('ids'), getList(payload.ids)),
         listById: mergeMapShallow(state.get('listById'), getMap(payload.listById)),
-        metadata: mergeMapShallow(state.get('metadata'), payload.metadata)
+        metadata: mergeMapShallow(state.get('metadata'), getMap(payload.metadata))
       })
     );
   },

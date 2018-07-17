@@ -1,6 +1,7 @@
 
 import {call, put} from 'redux-saga/effects';
 import {takeFirst} from '../../utils/sagaHelpers';
+import {getImmutableObject} from '../../utils/immutable';
 
 import {
   userGetReq,
@@ -16,12 +17,12 @@ const formatUsers = users => {
 
   temp.listById = users.results.reduce((map, item) => {
     idList.push(item.login.uuid);
-    map[item.login.uuid] = {
+    map[item.login.uuid] = getImmutableObject({
       id: item.login.uuid,
       name: item.name,
       email: item.email,
       picture: item.picture
-    };
+    });
     return map;
   }, {});
 

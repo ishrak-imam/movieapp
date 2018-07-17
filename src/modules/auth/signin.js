@@ -24,8 +24,8 @@ class Signin extends Component {
   constructor (props) {
     super(props);
     bindFunctions.call(this, [
-      '_logoResize', '_login',
-      '_register',
+      '_logoResize',
+      '_register', '_login',
       '_onKbrdShow', '_onKbrdHide',
       '_facebookLogin'
     ]);

@@ -26,8 +26,11 @@ class Home extends Component {
   }
 
   _getUser () {
-    const {userId, jwt} = this.props.login.get('token');
-    this.props.dispatch(getUser({userId, jwt}));
+    const token = this.props.login.get('token');
+    this.props.dispatch(getUser({
+      userId: token.get('userId'),
+      jwt: token.get('jwt')
+    }));
   }
 
   _logOut () {
@@ -44,7 +47,7 @@ class Home extends Component {
     return (
       <Screen>
         <Tile styleName='text-centric'>
-          <Text>Name: {user.name}</Text>
+          <Text>Name: {user.get('name')}</Text>
         </Tile>
         <Tile styleName='text-centric'>
           <Button onPress={this._toUsers} style={{borderWidth: 1, borderColor: '#000', borderRadius: 20, width: 100}}>

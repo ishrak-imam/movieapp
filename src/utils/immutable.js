@@ -1,9 +1,9 @@
 
-import {Map, List} from 'immutable';
+import {Map, List, fromJS} from 'immutable';
 
-// export const getImmutableObject = plainObject => {
-//   return fromJS(plainObject);
-// };
+export const getImmutableObject = plainObject => {
+  return fromJS(plainObject);
+};
 
 /**
  * Map methods
