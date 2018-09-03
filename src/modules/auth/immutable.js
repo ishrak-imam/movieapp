@@ -8,12 +8,10 @@ export const LOGIN_INITIAL_STATE = getMap({
   user: getMap({
     name: '',
     email: ''
-  }),
-  error: null
+  })
 });
 
 export const REGISTER_INITIAL_STATE = getMap({
   loading: false,
-  error: null,
   response: null
 });

@@ -10,11 +10,11 @@ import {
   init,
   loginReq, loginSucs, loginFail,
   facebookLoginReq,
-  getUser, getUserSucs, getUserFail,
+  getUser, getUserSucs, // getUserFail,
   registerReq, registerSucs, registerFail,
   logoutReq, logoutSucs
 } from './action';
-import {showToast} from '../toast/action';
+import {apiCallError} from '../error/action';
 import {navigateToScene} from '../../navigation/action';
 import {
   registerRequest,
@@ -53,8 +53,8 @@ function * workerLogin (action) {
     yield call(storeToken, accessToken);
     yield put(init());
   } catch (e) {
-    yield put(loginFail(e));
-    yield put(showToast({message: e.message}));
+    yield put(loginFail());
+    yield put(apiCallError({message: e.message}));
   }
 }
 
@@ -69,7 +69,8 @@ function * workerGetUser (action) {
     const user = yield call(getUserData, userId, jwt);
     yield put(getUserSucs(user));
   } catch (e) {
-    yield put(getUserFail(e));
+    // yield put(getUserFail(e));
+    yield put(apiCallError({message: e.message}));
   }
 }
 
@@ -91,14 +92,19 @@ function * workerRegister (action) {
     }
     yield put(loginReq(loginObj));
   } catch (e) {
-    yield put(registerFail(e));
-    yield put(showToast({message: e.message}));
+    yield put(registerFail());
+    yield put(apiCallError({message: e.message}));
   }
 }
 
 export function * watchFacebookLogin () {
   yield takeFirst(facebookLoginReq.getType(), workerFacebookLogin);
 }
+
+/**
+ * TODO
+ * find a proper way to handle fbLogin error
+ */
 
 function * workerFacebookLogin () {
   try {
@@ -117,7 +123,8 @@ function * workerFacebookLogin () {
     }
     yield put(registerReq(registerObj))
   } catch (e) {
-    yield put(showToast({message: e}));
+    // yield put(registerFail());
+    // yield put(apiCallError({message: e}));
   }
 }
 

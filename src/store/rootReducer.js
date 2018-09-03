@@ -5,16 +5,18 @@ import {
   LOGOUT_SUCS
 } from '../modules/auth/action';
 
+import { reducer as formReducer } from 'redux-form/immutable';
 import * as authReducers from '../modules/auth/reducer';
 import * as connectionReducer from '../modules/network/reducer';
 import * as userReducer from '../modules/users/reducer';
-import { reducer as formReducer } from 'redux-form/immutable';
+import * as errorReducer from '../modules/error/reducer';
 
 const appReducer = combineReducers({
   form: formReducer,
   ...connectionReducer,
   ...authReducers,
-  ...userReducer
+  ...userReducer,
+  ...errorReducer
 });
 
 const rootReduces = (state, action) => {

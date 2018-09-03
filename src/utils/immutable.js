@@ -21,6 +21,10 @@ export const mergeMapDeep = (map1, map2) => {
   return map1.mergeDeep(map2);
 };
 
+export const updateMap = (map, key, updater) => {
+  return map.update(key, updater);
+};
+
 /**
  * List methods
  */
@@ -31,6 +35,14 @@ export const getList = plainArray => {
 
 export const concatList = (list1, list2) => {
   return list1.concat(list2);
+};
+
+export const pushIntoList = (list, item) => {
+  return list.push(item);
+};
+
+export const shiftFromList = list => {
+  return list.shift();
 };
 
 /**
