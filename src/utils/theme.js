@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet, SafeAreaView} from 'react-native';
 import {getTheme} from '@shoutem/ui';
 import {StyleProvider} from '@shoutem/theme';
 
@@ -58,7 +58,9 @@ export const connectTheme = Scene => {
     render () {
       return (
         <StyleProvider style={customTheme}>
-          <Scene {...this.props} />
+          <SafeAreaView style={{flex: 1}}>
+            <Scene {...this.props} />
+          </SafeAreaView>
         </StyleProvider>
       );
     }

@@ -5,15 +5,16 @@ import {
   Animated, Keyboard, Platform,
   KeyboardAvoidingView
 } from 'react-native';
-import BottomButton from '../shared/bottomButton';
+import images from '../../utils/staticImages';
+// import BottomButton from '../shared/bottomButton';
 import {connect} from 'react-redux';
 import Form from '../shared/form';
 import Loader from '../shared/loader';
 import {LOGIN_FORM} from '../shared/form/config';
 import {bindFunctions} from '../../utils';
 import {loginReq, facebookLoginReq} from './action';
-import {getLogin} from './store';
-import {getConnection} from '../../utils/store';
+import {getLogin} from './selector';
+import {getConnection} from '../../utils/selector';
 import {navigateToScene} from '../../navigation/action';
 import {
   networkActionDispatcher,
@@ -92,50 +93,53 @@ class Signin extends Component {
   render () {
     const {login} = this.props;
     return (
-      <Screen styleName='paper'>
-        <View style={{flex: 11}}>
-          <KeyboardAvoidingView
-            {...Platform.select({ios: {behavior: 'padding'}, android: {}})}
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-          >
-            <View styleName='vertical h-center v-end' style={{flex: 1, paddingBottom: 30}}>
-              <Animated.Image
-                style={{
-                  alignSelf: 'center',
-                  height: this.logoDim,
-                  width: this.logoDim,
-                  borderRadius: this.radius
-                }}
-                source={require('../../images/logo.png')}
-              />
+      <Screen styleName='paper' style={{flex: 1}}>
+        <KeyboardAvoidingView
+          {...Platform.select({ios: {behavior: 'padding'}, android: {}})}
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+        >
+          <View styleName='vertical h-center v-end' style={{flex: 1, paddingBottom: 30}}>
+            <Animated.Image
+              style={{
+                alignSelf: 'center',
+                height: this.logoDim,
+                width: this.logoDim,
+                borderRadius: this.radius
+              }}
+              source={images.logo}
+            />
+          </View>
+          <View styleName='vertical h-center' style={{flex: 2}}>
+            <Form
+              key={LOGIN_FORM.name}
+              loading={login.get('loading')}
+              onSubmit={this._login}
+              config={LOGIN_FORM}
+            />
+            <View style={{marginTop: 20}}>
+              {
+                login.get('fbLoading')
+                  ? <View style={{alignItems: 'center'}}>
+                    <Loader visible size={40} />
+                  </View>
+                  : <Button
+                    styleName={'secondary auth'}
+                    onPress={this._facebookLogin}
+                  >
+                    <Text>FACEBOOK</Text>
+                  </Button>
+              }
             </View>
-            <View styleName='vertical h-center' style={{flex: 2}}>
-              <Form
-                key={LOGIN_FORM.name}
-                loading={login.get('loading')}
-                onSubmit={this._login}
-                config={LOGIN_FORM}
-              />
-              <View style={{marginTop: 20}}>
-                {
-                  login.get('fbLoading')
-                    ? <View style={{alignItems: 'center'}}>
-                      <Loader visible size={40} />
-                    </View>
-                    : <Button
-                      styleName={'secondary auth'}
-                      onPress={this._facebookLogin}
-                    >
-                      <Text>Facebook</Text>
-                    </Button>
-                }
-              </View>
+            <View style={{marginTop: 20}}>
+              <Button
+                styleName={'secondary auth'}
+                onPress={this._register}
+              >
+                <Text>Create New Account</Text>
+              </Button>
             </View>
-          </KeyboardAvoidingView>
-        </View>
-        <View style={{flex: 1}}>
-          <BottomButton text='Create new account' onPress={this._register} />
-        </View>
+          </View>
+        </KeyboardAvoidingView>
       </Screen>
     );
   }

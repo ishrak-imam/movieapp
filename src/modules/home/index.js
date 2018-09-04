@@ -7,7 +7,7 @@ import {
 
 import {connect} from 'react-redux';
 import {getUser, logoutReq} from '../auth/action';
-import {getLogin} from '../auth/store';
+import {getLogin} from '../auth/selector';
 import {bindFunctions} from '../../utils';
 import {navigateToScene} from '../../navigation/action';
 import {genericActionDispatcher} from '../../utils/actionDispatcher';

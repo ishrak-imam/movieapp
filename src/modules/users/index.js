@@ -8,7 +8,7 @@ import {
 import {FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {userGetReq} from './action';
-import {getUsers} from './store';
+import {getUsers} from './selector';
 import {bindFunctions} from '../../utils';
 
 class MyListItem extends Component {
@@ -109,7 +109,7 @@ class Users extends Component {
   render () {
     const {users} = this.props;
     return (
-      <View style={{padding: 10}}>
+      <View>
         <FlatList
           data={users.get('ids').toArray()}
           renderItem={this._renderItem}
